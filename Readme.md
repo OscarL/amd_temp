@@ -2,6 +2,16 @@
 
 A really simplistic AMD NorthBridge CPU Temperature driver for Haiku.
 
+This basically reads register 0xA4 from PCI bus 0x00, device 0x18, function 0x03.
+
+Reported values are NOT a physical representation of temperature, just a messure of how far is the CPU from needed as much cooling as it can get.
+
+Values are in "degrees" that have some resemblance to Celcius, so we use that.
+
+Due to Errata #319, readings for some CPUs might be innacurate (this driver shows it anyway).
+
+Just in case, compare with the output from other drivers (acpi_thermal, it87xx, or what your BIOS HW monitoring shows).
+
 ## Supported devices:
 
 CPUs from family 10h to 16h (K10/Athlon/Phenom to Jaguar/Puma).
@@ -55,3 +65,10 @@ Scanning/parsing  `/dev/sensor/amd_temp` for the temp value might prove to be a 
 I'm using the old driver API here out of convenience. With the new driver API (at least for now) it seems you are forced to reboot to get your newly built binary to replace the one already loaded.
 
 Much more convenient with the old driver API, you just replace the binary, and it loads your new code. I'll be using mostly the old API until the new API gains that feature.
+
+
+### Similar (and more complete!) drivers in other OSes:
+
+- FreeBSD's [amdtemp.c](https://github.com/freebsd/freebsd-src/blob/main/sys/dev/amdtemp/amdtemp.c)
+- Illumos's [amdnbtemp.c](https://github.com/illumos/illumos-gate/blob/master/usr/src/uts/intel/io/amdnbtemp/amdnbtemp.c)
+- Linux's [k10temp.c](https://github.com/torvalds/linux/blob/master/drivers/hwmon/k10temp.c)
