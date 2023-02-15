@@ -1,25 +1,29 @@
 # amd_temp
 
-A really simplistic AMD CPU Temperature driver for Haiku.
+A really simplistic AMD NorthBridge CPU Temperature driver for Haiku.
 
 ## Supported devices:
 
-CPUs from family 10h to 16h (Athlon/Phenom to Jaguar/Puma).
+CPUs from family 10h to 16h (K10/Athlon/Phenom to Jaguar/Puma).
 
-Some 0Fh CPUs might be supported. No Ryzen support (for now?).
+Some 0Fh (K8/Athlon64/Opteron) CPUs might be supported.
+
+No Ryzen support (for now?).
 
 Check with `listdev` to see if your devices match one of the following:
 
 VENDOR_ID= 0x1022
 
 DEVICE_ID=
- - 0x1203
- - 0x1303
- - 0x1703
- - 0x1603
- - 0x1403
- - 0x1533
- - 0x1583
+ - 0x1103 - K8 / Athlon64, Opteron
+ - 0x1203 - K10 / Athlon/Athlon II, Phenom/Phenom II
+ - 0x1303 - K11 / Turion X2 Ultra
+ - 0x1703 - F.12h F.14h - Llano/Bobcat APUs (eg AMD A6-3650, C-60, E-350)
+ - 0x1603 - F.15h - Jaguar
+ - 0x1403 - F.15h (Models 10h-1fh)
+ - 0x141d - F.15h (Models 30h-3fh)
+ - 0x1533 - F.16h - Puma
+ - 0x1583 - F.16h (Models 30h-3fh)
 
 I've only tested it with  `DEVICE_ID = 0x1203` so far.
 
@@ -33,12 +37,12 @@ If all went well, you should see something like:
 
 ```sh
 > cat /dev/sensor/amd_temp
-AMD Thermal Diode reading: 45.0 C
+AMD Thermal Reading: 45.0 C
 ```
 
 If not, `tail -f /var/log/syslog` should at least show if something went wrong, like:
 
-> KERN: amd_temp: amd_temp sensor not found.
+> KERN: amd_temp: sensor not found.
 
 ## Note 1:
 

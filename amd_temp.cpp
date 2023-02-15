@@ -25,7 +25,7 @@
 #endif
 #define ERROR(x...)	dprintf("amd_temp: " x)
 
-#define AMD_TEMP_DEVICE_NAME		"amd_temp"
+#define AMD_TEMP_DEVICE_NAME	"amd_temp"
 
 //-----------------------------------------------------------------------------
 
@@ -34,7 +34,7 @@ int32 api_version = B_CUR_DRIVER_API_VERSION;
 static pci_module_info* gPCI;
 
 //-----------------------------------------------------------------------------
-//	#pragma mark - device hooks
+// #pragma mark - device hooks
 
 status_t
 device_open(const char name[], uint32 flags, void** cookie)
@@ -75,7 +75,7 @@ device_control(void* cookie, uint32 op, void* arg, size_t length)
 			sensor_type_t sensors[] = {
 				 { 
 					 .kind = SENSOR_KIND_TEMPERATURE,
-					 .unit = SENSOR_UNIT_CELSIUS,
+					 .unit = SENSOR_UNIT_CELSIUS, // Not really.
 					 .name = {'A', 'M', 'D', 't', 0}, // GCC bug doesn't allows = "AMDt".
 					 .index = 0,
 				 }
@@ -134,8 +134,6 @@ device_control(void* cookie, uint32 op, void* arg, size_t length)
 status_t
 device_read(void* cookie, off_t position, void* buffer, size_t* numBytes)
 {
-	TRACE("device_read()\n");
-
 	if (*numBytes < 1)
 		return B_IO_ERROR;
 
@@ -150,7 +148,7 @@ device_read(void* cookie, off_t position, void* buffer, size_t* numBytes)
 	sensor_ioctl_scalar_t temp;
 	status_t status = device_control(cookie, SENSOR_READ_SCALAR, &temp, 0);
 	if (status == B_OK) {
-		snprintf(str, max_len, "AMD Thermal Diode reading: %" B_PRIu32 ".%" B_PRIu32 " C\n",
+		snprintf(str, max_len, "AMD Thermal Reading: %" B_PRIu32 ".%" B_PRIu32 " C\n",
 			(uint32) (temp.value / temp.resolution),
 			(uint32) (temp.value % temp.resolution));
 		*numBytes = strlen((char*) buffer);
@@ -171,20 +169,20 @@ device_write(void* cookie, off_t position, const void* buffer, size_t* numBytes)
 
 
 //-----------------------------------------------------------------------------
-// # pragma mark - driver hooks
+// #pragma mark - driver hooks
 
 
 #define VENDOR_ID_AMD	0x1022
 
 static uint16 amd_device_list[] = {
 
-//	0x1103,	// MISC 0x0F
+	0x1103,	// 0x0F NB/HOST MISC CTRL
 	0x1203,	// 0x10 NB/HOST MISC CTRL
 	0x1303,	// 0x11 NB/HOST MISC CTRL
-	0x1703,	// 0x14
-	0x1603,	// 0x15
+	0x1703,	// 0x14 Func.3
+	0x1603,	// 0x15 Func.3
 	0x1403,	// 0x15 M10H
-//	0x141d,	// 0x15 M30H
+	0x141d,	// 0x15 M30H
 //	0x1576,	// 0x15 M60H ROOT
 	0x1533,	// 0x16
 	0x1583,	// 0x16 M30H
@@ -237,7 +235,7 @@ init_hardware(void)
 
 done:
 	put_module(B_PCI_MODULE_NAME);
-	TRACE("amd_temp sensor %sfound.\n", found_one ? "" : "not ");
+	TRACE("sensor %sfound.\n", found_one ? "" : "not ");
 	return (found_one ? B_OK : B_DEVICE_NOT_FOUND);
 }
 
