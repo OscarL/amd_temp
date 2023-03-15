@@ -8,7 +8,7 @@ Reported values are NOT a physical representation of temperature, just a messure
 
 Values are in "degrees" that have some resemblance to Celcius, so we use that.
 
-Due to Errata #319, readings for some CPUs might be innacurate (this driver shows it anyway).
+Supposedly, due to Errata #319, readings for some CPUs might be innacurate (this driver shows it anyway). My CPU should be affected, but readings are aligned with what I get from other sensors, so... YMMV.
 
 Just in case, compare with the output from other drivers (acpi_thermal, it87xx, or what your BIOS HW monitoring shows).
 
@@ -35,7 +35,12 @@ DEVICE_ID=
  - 0x1533 - F.16h - Puma
  - 0x1583 - F.16h (Models 30h-3fh)
 
-I've only tested it with  `DEVICE_ID = 0x1203` so far.
+So far, tested only with DEVICE_IDs:
+
+ - 0x1203
+ - 0x1533
+
+(a.k.a. expected to NOT set your computer on fire, for those at least :-P)
 
 ## Install instructions:
 
@@ -72,3 +77,13 @@ Much more convenient with the old driver API, you just replace the binary, and i
 - FreeBSD's [amdtemp.c](https://github.com/freebsd/freebsd-src/blob/main/sys/dev/amdtemp/amdtemp.c)
 - Illumos's [amdnbtemp.c](https://github.com/illumos/illumos-gate/blob/master/usr/src/uts/intel/io/amdnbtemp/amdnbtemp.c)
 - Linux's [k10temp.c](https://github.com/torvalds/linux/blob/master/drivers/hwmon/k10temp.c)
+- OpenBSD's [km.c](https://github.com/openbsd/src/blob/master/sys/dev/pci/km.c)
+
+For K8:
+
+- Linux's [k8temp.c](https://github.com/torvalds/linux/blob/master/drivers/hwmon/k8temp.c)
+- OpenBSD's [kate.c](https://github.com/openbsd/src/blob/master/sys/dev/pci/kate.c)
+
+For Ryzen (and some 15h):
+
+-OpenBSD's [ksmn.c](https://github.com/openbsd/src/blob/master/sys/dev/pci/ksmn.c)
