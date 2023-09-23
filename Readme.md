@@ -35,12 +35,13 @@ DEVICE_ID=
  - 0x1533 - F.16h - Puma
  - 0x1583 - F.16h (Models 30h-3fh)
 
-So far, tested only with DEVICE_IDs:
+So far, tested with the following DEVICE_IDs:
 
- - 0x1203
+ - 0x1203 (Phenom II X4 925)
  - 0x1533
+ - 0x1583 (AMD E1-2100 APU)
 
-(a.k.a. expected to NOT set your computer on fire, for those at least :-P)
+(a.k.a. you can reasonably expect the driver to NOT set your computer on fire, for these CPUs at least :-P)
 
 ## Install instructions:
 
