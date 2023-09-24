@@ -38,7 +38,7 @@ DEVICE_ID=
 So far, tested with the following DEVICE_IDs:
 
  - 0x1203 (Phenom II X4 925)
- - 0x1533
+ - 0x1533 (AMD GX-212JC SoC)
  - 0x1583 (AMD E1-2100 APU)
 
 (a.k.a. you can reasonably expect the driver to NOT set your computer on fire, for these CPUs at least :-P)
