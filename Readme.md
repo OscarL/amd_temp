@@ -47,12 +47,12 @@ So far, tested with the following DEVICE_IDs:
 
 - Clone repo
 - `make && make driverinstall`
-- `cat /dev/sensor/amd_temp`
+- `cat /dev/sensors/amd_temp`
 
 If all went well, you should see something like:
 
 ```sh
-> cat /dev/sensor/amd_temp
+> cat /dev/sensors/amd_temp
 AMD Thermal Reading: 45.0 C
 ```
 
@@ -64,7 +64,7 @@ If not, `tail -f /var/log/syslog` should at least show if something went wrong, 
 
 This is a work in progress. IOCTL's op codes and parameters will certainly change, so do not take them for granted.
 
-Scanning/parsing  `/dev/sensor/amd_temp` for the temp value might prove to be a more stable "API", at least for now :-D.
+Scanning/parsing  `/dev/sensors/amd_temp` for the temp value might prove to be a more stable "API", at least for now :-D.
 
 ## Note 2:
 

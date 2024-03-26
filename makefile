@@ -16,7 +16,7 @@ DEBUGGER =
 COMPILER_FLAGS = -Wno-unused
 LINKER_FLAGS =
 APP_VERSION = 
-DRIVER_PATH = sensor
+DRIVER_PATH = sensors
 
 ## include the makefile-engine
 include $(BUILDHOME)/etc/makefile-engine

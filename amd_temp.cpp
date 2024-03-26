@@ -261,7 +261,7 @@ const char**
 publish_devices(void)
 {
 	static const char* names[] = {
-	    "sensor/" AMD_TEMP_DEVICE_NAME,
+	    "sensors/" AMD_TEMP_DEVICE_NAME,
 	    NULL
 	};
 
